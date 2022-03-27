@@ -22,8 +22,12 @@ createServer({
         this.put('/api/tarefas', (schema, request) => {
             const data = JSON.parse(request.requestBody);
 
-            return schema.db.tarefas.update(data.id, data);
+            return schema.db.tarefas.update(data.id, data,);
+            
+            
         })
+
+        this.delete('/api/tarefas/:id');
     }
 })
 

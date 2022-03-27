@@ -2,7 +2,6 @@ import { FormEvent, useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { FaWindowClose } from 'react-icons/fa';
 import { FormContainer } from './styles';
-import axios from 'axios';
 import { TarefaContext } from '../../contexts/tarefaContext';
 
 interface NovoModalProps {
@@ -16,11 +15,13 @@ export function NovoModal(props: NovoModalProps) {
         criarTarefas,
         editarTarefa,
         valoresPadraoEditarTarefa,
-        atualizarTarefa
+        atualizarTarefa,
+        deleteTarefas
     } = useContext(TarefaContext);
 
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
+    const [show, setShow] = useState<boolean>(false);
 
     useEffect(() => {
         if (editarTarefa.editar) {
@@ -39,9 +40,30 @@ export function NovoModal(props: NovoModalProps) {
         props.fecharModal();
     }
 
+
+    //####### BUTTON DELETE FUNCTION #####################   
+    function buttonExcluir() {
+        if (editarTarefa.editar) {
+
+            let obj: any = {
+                ...editarTarefa.tarefa,
+                titulo,
+                descricao
+            }
+            console.log("caiu submit excluir");
+            deleteTarefas(obj);
+            limparCamposAoFecharModal();
+
+
+        }
+    }
+
+
     function onSubmitModal(event: FormEvent) {
         //não deixa com que o formulario de reload na pagina
         event.preventDefault();
+
+
 
         if (editarTarefa.editar) {
 
@@ -50,6 +72,8 @@ export function NovoModal(props: NovoModalProps) {
                 titulo,
                 descricao
             }
+            console.log("editar");
+
 
             // atualizarTarefa({
             //     id: editarTarefa.tarefa?.id ? editarTarefa.tarefa.id : '',
@@ -65,8 +89,22 @@ export function NovoModal(props: NovoModalProps) {
         }
 
 
+
         limparCamposAoFecharModal();
     }
+
+    <button className='delete'
+        type="button"
+        onClick={() => {
+            buttonExcluir();
+        }}
+    >
+        excluir
+    </button>
+
+
+
+        ;
 
     return (
         <Modal
@@ -103,6 +141,22 @@ export function NovoModal(props: NovoModalProps) {
                 >
                     {editarTarefa.editar ? 'Editar' : 'Cadastrar'}
                 </button>
+                {editarTarefa.editar ?
+                    <button className='delete'
+                        type="button"
+                        onClick={() => {
+                            buttonExcluir();
+                        }}
+                    >
+                        excluir
+                    </button>
+
+                    : null
+                }
+
+
+
+
             </FormContainer>
 
         </Modal>

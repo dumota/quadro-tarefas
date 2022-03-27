@@ -6,6 +6,7 @@ interface InterfaceEditarTarefa {
     tarefa: InterfaceTarefas | null;
 }
 
+
 interface interfaceTarefaContext {
     tarefas: Array<InterfaceTarefas>;
     criarTarefas: (data: PropsTarefasInput) => Promise<void>;
@@ -13,6 +14,8 @@ interface interfaceTarefaContext {
     editarTarefa: InterfaceEditarTarefa;
     valoresPadraoEditarTarefa: () => void;
     atualizarTarefa: (data: InterfaceTarefas) => Promise<void>;
+    deleteTarefas: (data: InterfaceTarefas)=> void;
+  
 }
 export const TarefaContext = createContext({} as interfaceTarefaContext);
 
@@ -40,14 +43,19 @@ export function TarefasProvider(props: PropsTarefasProvider) {
     const [editarTarefa, setEditarTarefa] = useState<InterfaceEditarTarefa>({
         editar: false, tarefa: null
     });
+  
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        axios.get('/api/tarefas').then((res) => {
-            setTarefas(res.data)
-        })
+    //     axios.get('/api/tarefas').then((res) => {
+    //         setTarefas(res.data)
+    //         console.log(res.data);
+            
+    //     })
 
-    }, [])
+    // }, [])
+
+//#################### CREATE ##########################################################    
 
     async function criarTarefas(data: PropsTarefasInput) {
         await axios.post('/api/tarefas', data)
@@ -61,6 +69,10 @@ export function TarefasProvider(props: PropsTarefasProvider) {
 
         })
     }
+//#######################################################################################
+
+
+ //############### EDIT #################################################################   
 
     async function atualizarTarefa(data: InterfaceTarefas) {
         await axios.put('/api/tarefas', data)
@@ -78,21 +90,62 @@ export function TarefasProvider(props: PropsTarefasProvider) {
         })
     }
 
-    function valoresPadraoEditarTarefa() {
-        setEditarTarefa({ editar: false, tarefa: null })
-    }
+    
 
     function funEditarTarefa(data: InterfaceEditarTarefa) {
         // console.log('funEditarTarefa')
         // console.log(data)
         setEditarTarefa(data)
+        console.log(data);
+        
     }
+
+
+    function valoresPadraoEditarTarefa() {
+        setEditarTarefa({ editar: false, tarefa: null })
+    }
+
+
+//##########################################################################################
+
+
+
+
+   
+
+//################## DELETE ################################################################
+
+
+
+ 
+
+    async function deleteTarefas(data: InterfaceTarefas) {
+        await axios.delete(`/api/tarefas/${data.id}`,{method: 'DELETE'})
+        .then((res) => {
+            console.log("deleteTrefas")
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+
+        await axios.get('/api/tarefas').then((resposta) => {
+
+            setTarefas(resposta.data)
+            
+
+        })
+
+            
+        }
+//##########################################################################################        
 
     return (
         <TarefaContext.Provider value={{
             tarefas, criarTarefas,
             atualizarTarefa,
-            funEditarTarefa, editarTarefa, valoresPadraoEditarTarefa
+            funEditarTarefa, editarTarefa, valoresPadraoEditarTarefa,
+            deleteTarefas,
+           
         }}>
             {props.children}
         </TarefaContext.Provider>

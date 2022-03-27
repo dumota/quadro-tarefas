@@ -40,7 +40,7 @@ export const FormContainer = styled.form`
         margin-top: 1rem;
     }
 
-    button[type='submit'] {
+    button[type='submit'], .delete {
         width: 100%;
         padding: 0 1.5rem;
         height: 3rem;
@@ -55,5 +55,10 @@ export const FormContainer = styled.form`
         &:hover {
             filter: brightness(0.8);
         }
+        
+    }
+    .delete{
+        background: red;
+        
     }
 `;
