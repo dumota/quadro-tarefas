@@ -120,13 +120,22 @@ export function TarefasProvider(props: PropsTarefasProvider) {
  
 
     async function deleteTarefas(data: InterfaceTarefas) {
-        await axios.delete(`/api/tarefas/${data.id}`,{method: 'DELETE'})
+        // // await axios.delete(`/api/tarefas/${data.id}`,{method: 'DELETE'})
+        // .then((res) => {
+        //     console.log("deleteTrefas")
+        // })
+        // .catch((err) => {
+        //     console.log(err)
+        // })
+           await axios.delete(`/api/tarefas`,{method: 'DELETE',data: data})
         .then((res) => {
             console.log("deleteTrefas")
         })
         .catch((err) => {
             console.log(err)
         })
+
+
 
         await axios.get('/api/tarefas').then((resposta) => {
 
