@@ -1,4 +1,8 @@
+import axios from "axios";
+import { useContext, useEffect } from "react";
 import { Container, Content } from "./styles"
+import { TarefaContext } from "../../contexts/tarefaContext";
+
 
 interface HeaderProps {
     abrirModal: () => void;
@@ -6,8 +10,14 @@ interface HeaderProps {
 
 export const Header = (props: HeaderProps) => {
 
+   
+const tarefaCtx = useContext(TarefaContext);
+
+
+
+
     return (
-        <Container>
+        <Container >
             <Content>
                 <h1>Quadro de Tarefas </h1>
                 <div>
@@ -16,7 +26,7 @@ export const Header = (props: HeaderProps) => {
                     >
                         Nova tarefa
                     </button>
-                    <h3>Total: 50</h3>
+                    <h3>Total: {tarefaCtx.tarefas.length} </h3>
                 </div>
 
                 

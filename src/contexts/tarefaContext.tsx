@@ -16,6 +16,7 @@ interface interfaceTarefaContext {
     atualizarTarefa: (data: InterfaceTarefas) => Promise<void>;
     deleteTarefas: (data: InterfaceTarefas)=> void;
   
+  
 }
 export const TarefaContext = createContext({} as interfaceTarefaContext);
 
@@ -117,8 +118,6 @@ export function TarefasProvider(props: PropsTarefasProvider) {
 
 
 
- 
-
     async function deleteTarefas(data: InterfaceTarefas) {
         // // await axios.delete(`/api/tarefas/${data.id}`,{method: 'DELETE'})
         // .then((res) => {
@@ -153,7 +152,7 @@ export function TarefasProvider(props: PropsTarefasProvider) {
             tarefas, criarTarefas,
             atualizarTarefa,
             funEditarTarefa, editarTarefa, valoresPadraoEditarTarefa,
-            deleteTarefas,
+            deleteTarefas
            
         }}>
             {props.children}
