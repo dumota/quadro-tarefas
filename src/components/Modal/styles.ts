@@ -61,4 +61,14 @@ export const FormContainer = styled.form`
         background: red;
         
     }
+    .selection{
+        width: 100%;
+        padding: 0 1.5rem;
+        height: 3rem;
+        border-radius: 0.25rem;
+        border: 0;
+        font-size: 1rem;
+        background: #e7e9ee;
+        margin-bottom: 1rem;
+    }
 `;
