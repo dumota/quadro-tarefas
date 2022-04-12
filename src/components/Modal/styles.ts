@@ -13,6 +13,7 @@ export const FormContainer = styled.form`
         padding: 10px;
         border-radius: 0.25rem;
         border: 1px solid #d7d7d7;
+      
 
         background: #e7e9ee;
 

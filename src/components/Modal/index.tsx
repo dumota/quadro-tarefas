@@ -71,7 +71,8 @@ export function NovoModal(props: NovoModalProps) {
             let obj: any = {
                 ...editarTarefa.tarefa,
                 titulo,
-                descricao
+                descricao,
+                position
             }
             console.log("editar");
 
